@@ -16,8 +16,8 @@
 
 	<div formGroupName="address">
 		<h3>Address</h3>
-		<button type="button" (click)="setAddress()" [disabled]="profileForm.get('address').disabled">Set address</button>
-		<button type="button" (click)="patchAddress()" [disabled]="profileForm.get('address').disabled">Patch address</button>
+		<button type="button" (click)="setAddress()" [disabled]="profileForm.controls.address.disabled">Set address</button>
+		<button type="button" (click)="patchAddress()" [disabled]="profileForm.controls.address.disabled">Patch address</button>
 
 		<label>
       Street:
@@ -40,17 +40,21 @@
     </label>
 	</div>
 
-	<div formArrayName="aliases">
+	<div formGroupName="aliases">
 		<h3>Aliases</h3>
-		<button type="button" (click)="addAlias()" [disabled]="profileForm.disabled">Add Alias</button>
-		<p>Summe: {{aliasSum}}</p>
+		<button type="button" (click)="addAlias()" [disabled]="aliases.disabled">Add Alias</button>
+		<label>
+      Summe:
+      <input type="text" formControlName="sum" />
+    </label>
 
-		<div *ngFor="let alias of aliases.controls; let i=index">
-			<!-- The repeated alias template -->
-			<label>
-        Alias:
-        <input type="text" [formControlName]="i" />
-      </label>
+		<div formArrayName="entries">
+			<div *ngFor="let alias of aliases.controls; let i=index">
+				<label>
+          Alias:
+          <input type="text" [formControlName]="i" />
+        </label>
+			</div>
 		</div>
 	</div>
 

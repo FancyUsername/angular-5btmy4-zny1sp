@@ -11,8 +11,6 @@ import * as _ from "lodash";
   styleUrls: ["./profile-editor.component.css"]
 })
 export class ProfileEditorComponent implements OnInit {
-  aliasSum = 0;
-
   profileForm = this.fb.group({
     firstName: ["", Validators.required],
     lastName: [""],
@@ -22,18 +20,28 @@ export class ProfileEditorComponent implements OnInit {
       state: ["state"],
       zip: ["zip"]
     }),
-    aliases: this.fb.array([this.fb.control(0)])
+    aliases: this.fb.group({
+      sum: { value: 0, disabled: true },
+      entries: this.fb.array([this.fb.control(6)])
+    })
   });
 
   get aliases() {
-    return this.profileForm.get("aliases") as FormArray;
+    return this.profileForm.get("aliases.entries") as FormArray;
   }
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    let updateSum = () =>
+      this.profileForm
+        .get("aliases.sum")
+        .setValue(_.sum(this.profileForm.value.aliases.entries), {
+          emitEvent: false
+        });
+    updateSum();
     this.profileForm.valueChanges.subscribe(() => {
-      this.aliasSum = _.sum(this.profileForm.value.aliases);
+      updateSum();
     });
   }
 
