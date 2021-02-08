@@ -17,10 +17,10 @@ export class ProfileEditorComponent implements OnInit {
     firstName: ["", Validators.required],
     lastName: [""],
     address: this.fb.group({
-      street: [""],
-      city: [""],
-      state: [""],
-      zip: [""]
+      street: ["street"],
+      city: ["city"],
+      state: ["state"],
+      zip: ["zip"]
     }),
     aliases: this.fb.array([this.fb.control(0)])
   });
@@ -34,6 +34,22 @@ export class ProfileEditorComponent implements OnInit {
   ngOnInit() {
     this.profileForm.valueChanges.subscribe(() => {
       this.aliasSum = _.sum(this.profileForm.value.aliases);
+    });
+  }
+
+  setAddress() {
+    this.profileForm.get("address").setValue({
+      street: "set street",
+      city: "set city",
+      state: null,
+      zip: null
+    });
+  }
+
+  patchAddress() {
+    this.profileForm.get("address").patchValue({
+      street: "patched street",
+      city: "patched city"
     });
   }
 

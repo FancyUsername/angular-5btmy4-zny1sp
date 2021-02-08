@@ -11,6 +11,10 @@ export class FormUtil {
     control.setValue(value, { ...config, ...this.config });
   }
 
+  patchValue(control: FormControl, value: any, config?: any) {
+    control.patchValue(value, { ...config, ...this.config });
+  }
+
   execWithoutEmit(fn: () => {}) {
     let config = this.config;
     try {
