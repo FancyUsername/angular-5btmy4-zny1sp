@@ -37,6 +37,10 @@ export class ProfileEditorComponent implements OnInit {
     });
   }
 
+  switchActivation(active: boolean) {
+    active ? this.profileForm.disable() : this.profileForm.enable();
+  }
+
   setAddress() {
     this.profileForm.get("address").setValue({
       street: "set street",
