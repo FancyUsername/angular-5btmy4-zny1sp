@@ -32,14 +32,9 @@ export class ProfileEditorComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.profileForm.get("aliases").valueChanges.subscribe(() => {
-      console.log("changed", new Date().getTime());
+    this.profileForm.valueChanges.subscribe(() => {
+      this.aliasSum = _.sum(this.profileForm.value.aliases);
     });
-    //this.profileForm.valueChanges.subscribe(() => {
-    //this.aliasSum = _.sum(this.profileForm.value.aliases);
-    //console.log("sum:", this.aliasSum);
-    //  console.log("data:", this.profileForm.value);
-    //});
   }
 
   updateProfile() {
