@@ -33,6 +33,7 @@ export class ProfileEditorComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.updateProfile();
     let updateSum = () =>
       this.profileForm
         .get("aliases.sum")
